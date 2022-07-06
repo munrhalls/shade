@@ -1,4 +1,5 @@
 import { Diver } from "./diver";
+import { Ball } from "./Ball";
 import React, { useState } from "react";
 
 import "./App.css";
@@ -11,15 +12,15 @@ function App() {
   return (
     <div className="App">
       <Diver coords={coords} checkCoords={(e) => checkCoords(e)} />
-      <div
-        className="Ball"
-        style={{ height: `${coords}px`, width: `${coords}px` }}
-      >
-        <div
-          className="line"
-          style={{ transform: `rotate(${coords}deg)` }}
-        ></div>
-      </div>
+      <Ball coords={coords / 512} />
+      <Ball coords={coords / 256} />
+      <Ball coords={coords / 128} />
+      <Ball coords={coords / 64} />
+      <Ball coords={coords / 32} />
+      <Ball coords={coords / 16} />
+      <Ball coords={coords / 8} />
+      <Ball coords={coords / 4} />
+      <Ball coords={coords / 2} />
     </div>
   );
 }

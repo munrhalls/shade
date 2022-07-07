@@ -5,24 +5,24 @@ import "./App.css";
 
 function App() {
   const [coords, setCoords] = useState(0);
-  const checkCoords = (e) => {
-    setCoords(() => e.screenY);
-  };
-
-  let timeoutID = setTimeout(() => {
-    console.log("timeout");
-    setCoords(coords + 50);
-  }, 1000);
+  function updateCoords() {
+    console.log("UPDATE");
+    setCoords((coords) => coords + 100);
+  }
 
   useEffect(() => {
+    const intervalID = setInterval(() => {
+      updateCoords();
+    }, 1000);
+
     return () => {
-      clearTimeout(timeoutID);
+      clearInterval(intervalID);
     };
-  }, [coords]);
+  }, []);
 
   return (
     <div className="App">
-      <Diver coords={coords} checkCoords={(e) => checkCoords(e)} />
+      <Diver coords={coords} />
       <Ball coords={coords / 1024} />
       <Ball coords={coords / 512} />
       <Ball coords={coords / 256} />

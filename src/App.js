@@ -1,7 +1,6 @@
 import { Diver } from "./diver";
 import { Ball } from "./Ball";
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -9,6 +8,18 @@ function App() {
   const checkCoords = (e) => {
     setCoords(() => e.screenY);
   };
+
+  let timeoutID = setTimeout(() => {
+    console.log("timeout");
+    setCoords(coords + 50);
+  }, 1000);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutID);
+    };
+  }, [coords]);
+
   return (
     <div className="App">
       <Diver coords={coords} checkCoords={(e) => checkCoords(e)} />

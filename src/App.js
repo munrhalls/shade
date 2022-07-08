@@ -1,24 +1,29 @@
 import { Diver } from "./diver";
 import { Ball } from "./Ball";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useInterval } from "./useInterval";
 import "./App.css";
+
+const event = new Event("build");
 
 function App() {
   const [coords, setCoords] = useState(0);
-  function updateCoords() {
-    console.log("UPDATE");
-    setCoords((coords) => coords + 100);
-  }
-
-  useEffect(() => {
-    const intervalID = setInterval(() => {
-      updateCoords();
-    }, 1000);
-
-    return () => {
-      clearInterval(intervalID);
-    };
-  }, []);
+  const [up, setUp] = useState(true);
+  useInterval(() => {
+    // Your custom logic here
+    if (coords > 250) {
+      setUp(false);
+    }
+    if (coords < 100) {
+      setUp(true);
+    }
+    if (up) {
+      setCoords(coords + 50);
+    }
+    if (!up) {
+      setCoords(coords - 50);
+    }
+  }, 125);
 
   return (
     <div className="App">
